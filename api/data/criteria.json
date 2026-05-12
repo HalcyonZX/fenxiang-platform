@@ -1,0 +1,52 @@
+{
+  "generic": {
+    "title": "通用评价标准",
+    "criteria": [
+      { "dimension": "内容相关性", "description": "内容与品牌/产品主题高度相关，目标受众明确" },
+      { "dimension": "信息完整性", "description": "信息准确、完整，无重大遗漏或错误" },
+      { "dimension": "实用性", "description": "对读者/用户有实际价值，能解决问题或提供洞察" },
+      { "dimension": "视觉效果", "description": "整体视觉呈现专业、美观，符合品牌调性" },
+      { "dimension": "传播力", "description": "内容具备自发传播潜力，引发共鸣或讨论" }
+    ]
+  },
+  "article": {
+    "title": "文章/图文类评价标准",
+    "criteria": [
+      { "dimension": "标题吸引力", "description": "标题简洁有力，能激发点击欲望且不失真" },
+      { "dimension": "阅读体验", "description": "排版清晰、段落适中、重点突出，配图恰当" },
+      { "dimension": "逻辑结构", "description": "文章结构完整，起承转合自然，论点有支撑" },
+      { "dimension": "原创性", "description": "观点新颖或有独特角度，非简单搬运" },
+      { "dimension": "行动引导", "description": "有清晰的后续行动指引（阅读原文、咨询等）" }
+    ]
+  },
+  "video": {
+    "title": "视频类评价标准",
+    "criteria": [
+      { "dimension": "画面质量", "description": "画面清晰稳定，色彩准确，分辨率达标" },
+      { "dimension": "音频质量", "description": "声音清晰无杂音，音量适中，配乐恰当" },
+      { "dimension": "剪辑节奏", "description": "节奏紧凑不拖沓，转场自然，时长合理" },
+      { "dimension": "内容价值", "description": "信息传递高效，观众能在短时间内获取核心价值" },
+      { "dimension": "品牌呈现", "description": "品牌元素自然融入，不过度植入" }
+    ]
+  },
+  "poster": {
+    "title": "长图/海报类评价标准",
+    "criteria": [
+      { "dimension": "信息密度", "description": "信息量适中，能在10秒内读完核心内容" },
+      { "dimension": "设计美感", "description": "配色协调、字体搭配合理，符合品牌VI规范" },
+      { "dimension": "可读性", "description": "文字大小适中、对比度足够，手机端阅读无压力" },
+      { "dimension": "视觉层次", "description": "重点信息突出，视觉引导清晰" },
+      { "dimension": "分享适配", "description": "长宽比适合在微信等平台传播" }
+    ]
+  },
+  "ppt": {
+    "title": "PPT类评价标准",
+    "criteria": [
+      { "dimension": "排版设计", "description": "版面整洁，留白合理，无拥挤感" },
+      { "dimension": "内容逻辑", "description": "每页一个核心观点，整体叙事连贯" },
+      { "dimension": "视觉统一", "description": "配色、字体、图表风格全局统一" },
+      { "dimension": "图表质量", "description": "数据可视化清晰易懂，无误导性图表" },
+      { "dimension": "演讲适配", "description": "页码、备注等细节到位，便于演示使用" }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "fenxiang-content-platform",
+  "version": "1.0.0",
+  "description": "纷享销客品牌内容展示与投票平台",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "vercel": {
+    "rewrites": [
+      { "source": "/api/(.*)", "destination": "/api/$1" }
+    ]
+  }
+}

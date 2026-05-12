@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "public/**", "use": "@vercel/static" },
+    { "src": "api/**/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/content", "dest": "/api/content.js" },
+    { "src": "/api/criteria", "dest": "/api/criteria.js" },
+    { "src": "/api/votes", "dest": "/api/votes.js" },
+    { "src": "/api/vote", "dest": "/api/vote.js" },
+    { "src": "/api/current-month", "dest": "/api/current-month.js" },
+    { "src": "/(.*)", "dest": "/public/$1" }
+  ]
+}

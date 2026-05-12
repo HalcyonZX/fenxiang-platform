@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>纷享销客 - 品牌内容平台</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- 导航 -->
+<nav class="site-nav">
+  <div class="site-nav__inner">
+    <a href="/" class="site-nav__brand">
+      <img src="/images/logo.png" alt="纷享销客" class="site-nav__brand-logo">
+    </a>
+    <div class="site-nav__links">
+      <a href="/" class="active">内容</a>
+      <a href="/#criteria">评价标准</a>
+      <a href="/vote.html">投票</a>
+      <a href="/results.html">结果</a>
+      <a href="/vote.html" class="nav-cta">投票</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+
+  <!-- Hero -->
+  <header class="page-hero">
+    <div class="page-hero__eyebrow">品牌内容中心</div>
+    <h1 class="page-hero__title">让每一份内容<br><span>都被看见</span></h1>
+    <p class="page-hero__desc">集中展示所有已发布内容，了解评价标准，参与月度投票，帮助内容团队持续产出更受欢迎、更有价值的内容。</p>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-item__num" id="stat-total">-</div>
+        <div class="stat-item__label">内容总数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-item__num" id="stat-types">-</div>
+        <div class="stat-item__label">内容类型</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-item__num" id="stat-this-month">-</div>
+        <div class="stat-item__label">本月新增</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 筛选栏 -->
+  <div class="filter-bar" id="filter-bar">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="article">文章/图文</button>
+    <button class="filter-btn" data-filter="video">视频</button>
+    <button class="filter-btn" data-filter="poster">长图/海报</button>
+    <button class="filter-btn" data-filter="ppt">PPT</button>
+  </div>
+
+  <!-- 内容流 -->
+  <div class="content-feed" id="card-feed"></div>
+  <div class="empty-state" id="empty-state" style="display:none;">
+    <div class="empty-state__icon">📭</div>
+    <h3 class="empty-state__title">暂无内容</h3>
+    <p class="empty-state__desc">请将内容信息发送给 AI，由 AI 录入平台</p>
+  </div>
+
+  <!-- 评价标准 -->
+  <section class="criteria-section" id="criteria">
+    <div class="criteria-section__header">
+      <h2 class="criteria-section__title">评价标准</h2>
+      <p class="criteria-section__desc">了解各类内容的评判维度，投票时可作为重要参考</p>
+    </div>
+    <div id="criteria-container"></div>
+  </section>
+
+</main>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
