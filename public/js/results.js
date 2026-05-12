@@ -1,12 +1,18 @@
 // results.js - 结果页逻辑
 let allContent = [];
 let currentMonth = '';
+let autoRefreshTimer = null;
 
 async function init() {
   await loadContent();
   await loadCurrentMonth();
   renderMonthSelector();
   await loadResults(currentMonth);
+  // 每 10 秒自动刷新投票结果
+  autoRefreshTimer = setInterval(async () => {
+    await loadContent();
+    await loadResults(currentMonth);
+  }, 10000);
 }
 
 async function loadCurrentMonth() {

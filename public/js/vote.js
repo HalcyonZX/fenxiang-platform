@@ -2,12 +2,28 @@
 let allContent = [];
 let selectedIds = new Set();
 let currentMonth = '';
+let autoRefreshTimer = null;
 
 async function init() {
   await Promise.all([loadMonth(), loadContent()]);
   renderVoteCards(allContent);
   initFilter();
   checkAlreadyVoted();
+  // 每 10 秒自动刷新内容列表
+  autoRefreshTimer = setInterval(async () => {
+    await loadContent();
+    const savedIds = new Set(selectedIds);
+    renderVoteCards(allContent);
+    // 恢复已选状态
+    savedIds.forEach(id => {
+      if (document.getElementById(`card-${id}`)) {
+        selectedIds.add(id);
+        document.getElementById(`card-${id}`).classList.add('selected');
+        document.getElementById(`check-${id}`).textContent = '✓';
+      }
+    });
+    updateSelectionUI();
+  }, 10000);
 }
 
 async function loadMonth() {

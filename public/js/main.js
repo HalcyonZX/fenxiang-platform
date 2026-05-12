@@ -1,6 +1,7 @@
 // main.js - 首页逻辑
 let allContent = [];
 let criteriaData = null;
+let autoRefreshTimer = null;
 
 async function init() {
   await Promise.all([loadContent(), loadCriteria()]);
@@ -8,6 +9,13 @@ async function init() {
   renderCriteria();
   updateStats();
   initFilter();
+  // 每 10 秒自动刷新数据
+  autoRefreshTimer = setInterval(async () => {
+    await Promise.all([loadContent(), loadCriteria()]);
+    renderCards(allContent);
+    renderCriteria();
+    updateStats();
+  }, 10000);
 }
 
 async function loadContent() {
