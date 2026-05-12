@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>内容管理后台 - 纷享销客</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { color: #333; margin-bottom: 20px; }
+    .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; margin-bottom: 6px; color: #666; font-size: 14px; }
+    input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+    textarea { min-height: 80px; resize: vertical; }
+    .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
+    .btn-primary { background: #007AFF; color: white; }
+    .btn-primary:hover { background: #0051d5; }
+    .btn-success { background: #34C759; color: white; }
+    .btn-success:hover { background: #248a3d; }
+    .btn-danger { background: #FF3B30; color: white; }
+    .btn-danger:hover { background: #d32f2f; }
+    .btn-secondary { background: #8E8E93; color: white; }
+    .btn-secondary:hover { background: #636366; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+    th { background: #f8f8f8; color: #666; font-weight: 500; }
+    .type-badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; background: #e8f4ff; color: #007AFF; }
+    .action-btn { padding: 6px 12px; margin-right: 4px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .tab { padding: 10px 20px; background: white; border: none; border-radius: 8px; cursor: pointer; }
+    .tab.active { background: #007AFF; color: white; }
+    .hidden { display: none; }
+    .success { color: #34C759; margin-top: 8px; }
+    .error { color: #FF3B30; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📋 内容管理后台</h1>
+    
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('list')">内容列表</button>
+      <button class="tab" onclick="showTab('add')">添加内容</button>
+      <button class="tab" onclick="showTab('edit')">编辑内容</button>
+    </div>
+
+    <!-- 内容列表 -->
+    <div id="list-tab" class="card">
+      <h2 style="margin-bottom:16px;">当前内容列表</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>标题</th>
+            <th>类型</th>
+            <th>平台</th>
+            <th>时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="content-table"></tbody>
+      </table>
+    </div>
+
+    <!-- 添加内容 -->
+    <div id="add-tab" class="card hidden">
+      <h2 style="margin-bottom:16px;">添加新内容</h2>
+      <form id="add-form">
+        <div class="form-group">
+          <label>标题 *</label>
+          <input type="text" id="add-title" required placeholder="输入内容标题">
+        </div>
+        <div class="form-group">
+          <label>类型 *</label>
+          <select id="add-type" required>
+            <option value="article">文章/图文</option>
+            <option value="video">视频</option>
+            <option value="poster">长图/海报</option>
+            <option value="ppt">PPT</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>平台</label>
+          <input type="text" id="add-platform" placeholder="如：微信公众号、官网等">
+        </div>
+        <div class="form-group">
+          <label>链接URL</label>
+          <input type="url" id="add-url" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label>发布时间</label>
+          <input type="date" id="add-time">
+        </div>
+        <div class="form-group">
+          <label>描述</label>
+          <textarea id="add-desc" placeholder="内容简介"></textarea>
+        </div>
+        <div class="form-group">
+          <label>作者</label>
+          <input type="text" id="add-author" placeholder="作者名称">
+        </div>
+        <button type="submit" class="btn btn-success">添加内容</button>
+        <div id="add-msg"></div>
+      </form>
+    </div>
+
+    <!-- 编辑内容 -->
+    <div id="edit-tab" class="card hidden">
+      <h2 style="margin-bottom:16px;">编辑内容</h2>
+      <form id="edit-form">
+        <input type="hidden" id="edit-id">
+        <div class="form-group">
+          <label>标题 *</label>
+          <input type="text" id="edit-title" required>
+        </div>
+        <div class="form-group">
+          <label>类型 *</label>
+          <select id="edit-type" required>
+            <option value="article">文章/图文</option>
+            <option value="video">视频</option>
+            <option value="poster">长图/海报</option>
+            <option value="ppt">PPT</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>平台</label>
+          <input type="text" id="edit-platform">
+        </div>
+        <div class="form-group">
+          <label>链接URL</label>
+          <input type="url" id="edit-url">
+        </div>
+        <div class="form-group">
+          <label>发布时间</label>
+          <input type="date" id="edit-time">
+        </div>
+        <div class="form-group">
+          <label>描述</label>
+          <textarea id="edit-desc"></textarea>
+        </div>
+        <div class="form-group">
+          <label>作者</label>
+          <input type="text" id="edit-author">
+        </div>
+        <button type="submit" class="btn btn-primary">保存修改</button>
+        <button type="button" class="btn btn-secondary" onclick="showTab('list')">取消</button>
+        <div id="edit-msg"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const typeLabels = { article: '文章/图文', video: '视频', poster: '长图/海报', ppt: 'PPT' };
+    let allContent = [];
+
+    function showTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+      document.getElementById(tab + '-tab').classList.remove('hidden');
+      event.target.classList.add('active');
+      if (tab === 'list') loadContent();
+    }
+
+    async function loadContent() {
+      const res = await fetch('/api/content');
+      const data = await res.json();
+      allContent = data.items || [];
+      renderTable();
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('content-table');
+      tbody.innerHTML = allContent.map((item, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${item.title}</td>
+          <td><span class="type-badge">${typeLabels[item.type] || item.type}</span></td>
+          <td>${item.platform || '-'}</td>
+          <td>${item.productionTime || '-'}</td>
+          <td>
+            <button class="btn btn-primary action-btn" onclick="editItem('${item.id}')">编辑</button>
+            <button class="btn btn-danger action-btn" onclick="deleteItem('${item.id}')">删除</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    document.getElementById('add-form').onsubmit = async (e) => {
+      e.preventDefault();
+      const newItem = {
+        id: 'cnt-' + Date.now(),
+        title: document.getElementById('add-title').value,
+        type: document.getElementById('add-type').value,
+        typeLabel: typeLabels[document.getElementById('add-type').value],
+        platform: document.getElementById('add-platform').value,
+        platformUrl: document.getElementById('add-url').value,
+        productionTime: document.getElementById('add-time').value,
+        description: document.getElementById('add-desc').value,
+        author: document.getElementById('add-author').value
+      };
+      const res = await fetch('/api/admin/content/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newItem)
+      });
+      const result = await res.json();
+      const msg = document.getElementById('add-msg');
+      if (result.success) {
+        msg.className = 'success';
+        msg.textContent = '添加成功！';
+        e.target.reset();
+        setTimeout(() => showTab('list'), 1500);
+      } else {
+        msg.className = 'error';
+        msg.textContent = result.error || '添加失败';
+      }
+    };
+
+    function editItem(id) {
+      const item = allContent.find(c => c.id === id);
+      if (!item) return;
+      document.getElementById('edit-id').value = id;
+      document.getElementById('edit-title').value = item.title;
+      document.getElementById('edit-type').value = item.type;
+      document.getElementById('edit-platform').value = item.platform || '';
+      document.getElementById('edit-url').value = item.platformUrl || '';
+      document.getElementById('edit-time').value = item.productionTime || '';
+      document.getElementById('edit-desc').value = item.description || '';
+      document.getElementById('edit-author').value = item.author || '';
+      showTab('edit');
+      document.querySelectorAll('.tab')[2].classList.add('active');
+      document.querySelectorAll('.tab')[2].click();
+    }
+
+    document.getElementById('edit-form').onsubmit = async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-id').value;
+      const updatedItem = {
+        title: document.getElementById('edit-title').value,
+        type: document.getElementById('edit-type').value,
+        typeLabel: typeLabels[document.getElementById('edit-type').value],
+        platform: document.getElementById('edit-platform').value,
+        platformUrl: document.getElementById('edit-url').value,
+        productionTime: document.getElementById('edit-time').value,
+        description: document.getElementById('edit-desc').value,
+        author: document.getElementById('edit-author').value
+      };
+      const res = await fetch('/api/admin/content/update/' + id, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedItem)
+      });
+      const result = await res.json();
+      const msg = document.getElementById('edit-msg');
+      if (result.success) {
+        msg.className = 'success';
+        msg.textContent = '修改成功！';
+        setTimeout(() => showTab('list'), 1500);
+      } else {
+        msg.className = 'error';
+        msg.textContent = result.error || '修改失败';
+      }
+    };
+
+    async function deleteItem(id) {
+      if (!confirm('确定要删除这个内容吗？')) return;
+      const res = await fetch('/api/admin/content/delete/' + id, { method: 'POST' });
+      const result = await res.json();
+      if (result.success) {
+        alert('删除成功！');
+        loadContent();
+      } else {
+        alert(result.error || '删除失败');
+      }
+    }
+
+    loadContent();
+  </script>
+</body>
+</html>

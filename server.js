@@ -12,6 +12,103 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ============ 管理后台 API ============
+
+// 获取内容数据文件路径
+function getContentFilePath() {
+  return path.join(DATA_DIR, 'content-data.json');
+}
+
+// 读取内容数据
+function readContentData() {
+  const filePath = getContentFilePath();
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  } catch (err) {
+    return { lastUpdated: '', items: [] };
+  }
+}
+
+// 保存内容数据
+function saveContentData(data) {
+  const filePath = getContentFilePath();
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+}
+
+// POST /api/admin/content/add - 添加内容
+app.post('/api/admin/content/add', (req, res) => {
+  try {
+    const data = readContentData();
+    const newItem = req.body;
+    
+    // 生成ID
+    if (!newItem.id) {
+      newItem.id = 'cnt-' + Date.now();
+    }
+    
+    // 确保 typeLabel 存在
+    const typeLabels = { article: '文章/图文', video: '视频', poster: '长图/海报', ppt: 'PPT' };
+    if (!newItem.typeLabel && typeLabels[newItem.type]) {
+      newItem.typeLabel = typeLabels[newItem.type];
+    }
+    
+    data.items.push(newItem);
+    data.lastUpdated = new Date().toISOString().split('T')[0];
+    saveContentData(data);
+    
+    res.json({ success: true, message: '内容添加成功' });
+  } catch (err) {
+    console.error('添加内容失败:', err);
+    res.status(500).json({ error: '添加内容失败' });
+  }
+});
+
+// POST /api/admin/content/update/:id - 更新内容
+app.post('/api/admin/content/update/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = readContentData();
+    const index = data.items.findIndex(item => item.id === id);
+    
+    if (index === -1) {
+      return res.status(404).json({ error: '内容不存在' });
+    }
+    
+    // 保留原ID，更新其他字段
+    const updatedItem = { ...data.items[index], ...req.body, id };
+    data.items[index] = updatedItem;
+    data.lastUpdated = new Date().toISOString().split('T')[0];
+    saveContentData(data);
+    
+    res.json({ success: true, message: '内容更新成功' });
+  } catch (err) {
+    console.error('更新内容失败:', err);
+    res.status(500).json({ error: '更新内容失败' });
+  }
+});
+
+// POST /api/admin/content/delete/:id - 删除内容
+app.post('/api/admin/content/delete/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = readContentData();
+    const index = data.items.findIndex(item => item.id === id);
+    
+    if (index === -1) {
+      return res.status(404).json({ error: '内容不存在' });
+    }
+    
+    data.items.splice(index, 1);
+    data.lastUpdated = new Date().toISOString().split('T')[0];
+    saveContentData(data);
+    
+    res.json({ success: true, message: '内容删除成功' });
+  } catch (err) {
+    console.error('删除内容失败:', err);
+    res.status(500).json({ error: '删除内容失败' });
+  }
+});
+
 // GET /api/content - 获取所有内容
 app.get('/api/content', (req, res) => {
   const filePath = path.join(DATA_DIR, 'content-data.json');
