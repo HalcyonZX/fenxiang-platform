@@ -94,11 +94,10 @@ function escapeHtml(text) {
 }
 
 function openContent(url, id) {
-  if (url && url.trim()) {
+  if (url && url.trim() && !url.includes('example')) {
     window.open(url, '_blank');
-  } else {
-    alert('该内容暂无外部链接，请联系内容管理员获取文件。');
   }
+  // 无链接或示例链接时不执行任何操作
 }
 
 function initFilter() {
