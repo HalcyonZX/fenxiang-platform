@@ -105,8 +105,8 @@ async function loadResults(month) {
         <div class="ranking-item">
           <div class="ranking-item__rank ${rankCls}">${item.rank}</div>
           <div class="ranking-item__info">
-            <div class="ranking-item__title">${item.title}</div>
-            <div class="ranking-item__meta">${typeIcons[item.type] || ''} ${item.typeLabel} · ${item.productionTime} · ${item.platform}</div>
+            <div class="ranking-item__title">${escapeHtml(item.title)}</div>
+            <div class="ranking-item__meta">${typeIcons[item.type] || ''} ${escapeHtml(item.typeLabel)} · ${item.productionTime} · ${escapeHtml(item.platform)}</div>
           </div>
           <div class="ranking-item__votes">${item.voteCount} <span>票</span></div>
         </div>
@@ -123,6 +123,13 @@ async function loadResults(month) {
       </div>
     `;
   }
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 document.addEventListener('DOMContentLoaded', init);

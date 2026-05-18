@@ -48,13 +48,26 @@ function renderCards(items) {
   empty.style.display = 'none';
 
   const typeIcons = { insight: '💡', daily: '📝', tool: '🛠️', poster: '🎨', video: '🎬', article: '📄', ppt: '📊' };
+  const typeGradients = {
+    article: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    video: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    poster: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    ppt: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    insight: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    daily: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+    tool: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
+  };
 
-  grid.innerHTML = items.map((item, i) => `
+  grid.innerHTML = items.map((item, i) => {
+    const coverHtml = item.cover
+      ? `<img class="story-card__cover-img" src="${item.cover}" alt="${item.title}" loading="lazy">`
+      : `<div class="story-card__cover-icon" style="background:${typeGradients[item.type] || typeGradients.article};"><span style="font-size:36px;">${typeIcons[item.type] || '📄'}</span></div>`;
+
+    return `
     <div class="story-card" onclick="openContent('${item.platformUrl || ''}', '${item.id}')">
       <div class="story-card__cover">
-        <span>${typeIcons[item.type] || '📄'}</span>
+        ${coverHtml}
         <span class="story-card__cover-badge">${item.typeLabel || item.type}</span>
-        <span class="story-card__cover-platform">${item.platform || ''}</span>
       </div>
       <div class="story-card__body">
         <div class="story-card__meta">
@@ -62,15 +75,22 @@ function renderCards(items) {
           <span class="story-card__dot"></span>
           <span class="story-card__date">${item.productionTime || ''}</span>
         </div>
-        <div class="story-card__title">${item.title}</div>
-        <div class="story-card__desc">${item.description || ''}</div>
+        <div class="story-card__title">${escapeHtml(item.title)}</div>
+        <div class="story-card__desc">${escapeHtml(item.description || '')}</div>
         <div class="story-card__footer">
-          <span class="story-card__author">👤 ${item.author || ''}</span>
+          <span class="story-card__author">👤 ${escapeHtml(item.author || '')}</span>
           <span class="story-card__arrow">↗</span>
         </div>
       </div>
     </div>
-  `).join('');
+  `}).join('');
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 function openContent(url, id) {
