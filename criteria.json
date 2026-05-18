@@ -1,0 +1,93 @@
+{
+  "generic": {
+    "title": "通用评价标准",
+    "description": "适用于所有类型内容",
+    "criteria": [
+      {
+        "dimension": "四促贡献",
+        "weight": "30%",
+        "description": "内容对促建联、促立项、促成交、促增值的帮助程度"
+      },
+      {
+        "dimension": "内容相关",
+        "weight": "20%",
+        "description": "内容与目标受众、业务需求的匹配度"
+      },
+      {
+        "dimension": "信息准确",
+        "weight": "15%",
+        "description": "数据、事实准确无误"
+      },
+      {
+        "dimension": "行业洞察",
+        "weight": "15%",
+        "description": "对行业/客户的理解深度"
+      },
+      {
+        "dimension": "视觉效果",
+        "weight": "10%",
+        "description": "排版、设计专业美观"
+      },
+      {
+        "dimension": "传播效果",
+        "weight": "10%",
+        "description": "浏览、转发、客户反馈等数据表现"
+      }
+    ]
+  },
+  "insight": {
+    "title": "洞察类",
+    "description": "行业文章、标杆案例",
+    "criteria": [
+      { "dimension": "四促贡献", "weight": "25%", "description": "对业务推进的帮助" },
+      { "dimension": "洞察深度", "weight": "25%", "description": "观点有独特见解" },
+      { "dimension": "案例质量", "weight": "20%", "description": "案例典型、有说服力" },
+      { "dimension": "故事表达", "weight": "15%", "description": "叙事生动、能引发共鸣" },
+      { "dimension": "阅读体验", "weight": "15%", "description": "标题吸引、排版清晰" }
+    ]
+  },
+  "daily": {
+    "title": "日常类",
+    "description": "案例文章、产品内容、活动资讯",
+    "criteria": [
+      { "dimension": "四促贡献", "weight": "25%", "description": "对业务推进的帮助" },
+      { "dimension": "场景化", "weight": "25%", "description": "能让客户有代入感" },
+      { "dimension": "产品价值", "weight": "20%", "description": "产品卖点呈现自然" },
+      { "dimension": "转化引导", "weight": "15%", "description": "能引导客户留资/咨询" },
+      { "dimension": "可复用", "weight": "15%", "description": "一线团队能用" }
+    ]
+  },
+  "tool": {
+    "title": "工具类",
+    "description": "演讲素材、公司介绍PPT、销售工具",
+    "criteria": [
+      { "dimension": "销售支撑", "weight": "30%", "description": "直接帮销售打单" },
+      { "dimension": "内容精准", "weight": "25%", "description": "信息准确、表达清晰" },
+      { "dimension": "专业呈现", "weight": "20%", "description": "视觉专业、有信任感" },
+      { "dimension": "易调整", "weight": "15%", "description": "一线能快速改用" },
+      { "dimension": "现场效果", "weight": "10%", "description": "演示时效果好" }
+    ]
+  },
+  "poster": {
+    "title": "视觉类",
+    "description": "海报、长图、活动物料",
+    "criteria": [
+      { "dimension": "四促贡献", "weight": "25%", "description": "对业务推进的帮助" },
+      { "dimension": "设计美感", "weight": "25%", "description": "配色、字体协调" },
+      { "dimension": "信息清晰", "weight": "20%", "description": "核心信息一眼看懂" },
+      { "dimension": "行动引导", "weight": "15%", "description": "有明确的扫码/留资" },
+      { "dimension": "传播适配", "weight": "15%", "description": "适合朋友圈传播" }
+    ]
+  },
+  "video": {
+    "title": "视频类",
+    "description": "产品演示、客户采访、品牌视频",
+    "criteria": [
+      { "dimension": "四促贡献", "weight": "25%", "description": "对业务推进的帮助" },
+      { "dimension": "内容价值", "weight": "25%", "description": "信息传递高效" },
+      { "dimension": "品牌呈现", "weight": "20%", "description": "品牌记忆深刻" },
+      { "dimension": "情感共鸣", "weight": "15%", "description": "能打动观众" },
+      { "dimension": "制作质量", "weight": "15%", "description": "画面、剪辑专业" }
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "lastUpdated": "2026-05-11",
+  "items": [
+    {
+      "id": "cnt-001",
+      "title": "纷享销客2026春季产品发布会回顾",
+      "type": "article",
+      "typeLabel": "文章/图文",
+      "platform": "微信公众号",
+      "platformUrl": "https://mp.weixin.qq.com/example1",
+      "cover": "",
+      "productionTime": "2026-04-15",
+      "description": "2026年春季产品发布会的完整回顾，包含新品介绍和客户案例分享。",
+      "author": "品牌内容团队"
+    },
+    {
+      "id": "cnt-002",
+      "title": "3分钟看懂纷享销客CRM核心功能",
+      "type": "video",
+      "typeLabel": "视频",
+      "platform": "官网",
+      "platformUrl": "https://www.fxiaoke.com/example-video",
+      "cover": "",
+      "productionTime": "2026-03-20",
+      "description": "短视频介绍CRM系统的核心功能模块，适合新用户快速了解产品。",
+      "author": "视频内容组"
+    },
+    {
+      "id": "cnt-003",
+      "title": "2026企业数字化营销全景图",
+      "type": "poster",
+      "typeLabel": "长图/海报",
+      "platform": "纷享销客App",
+      "platformUrl": "",
+      "cover": "",
+      "productionTime": "2026-05-01",
+      "description": "一张图看懂企业数字化营销的全流程，涵盖获客、转化、留存各环节。",
+      "author": "设计团队"
+    },
+    {
+      "id": "cnt-004",
+      "title": "纷享销客销售赋能培训课件",
+      "type": "ppt",
+      "typeLabel": "PPT",
+      "platform": "本地文件",
+      "platformUrl": "",
+      "cover": "",
+      "productionTime": "2026-02-10",
+      "description": "面向销售团队的赋能培训PPT，包含产品知识、销售话术和案例解析。",
+      "author": "培训部"
+    }
+  ]
+}
