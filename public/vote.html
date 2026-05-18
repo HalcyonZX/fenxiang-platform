@@ -3,53 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>月度投票 - 纷享销客内容平台</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <title>月度投票 — 纷享销客内容平台</title>
+  <link rel="stylesheet" href="./css/purple-style.css">
 </head>
 <body>
 
-<!-- 导航 -->
 <nav class="site-nav">
   <div class="site-nav__inner">
-    <a href="/" class="site-nav__brand">
-      <img src="/images/logo.png" alt="纷享销客" class="site-nav__brand-logo">
+    <a href="./index.html" class="site-nav__brand">
+      <div class="site-nav__brand-logo">纷享销客</div>
     </a>
     <div class="site-nav__links">
-      <a href="/">内容</a>
-      <a href="/#criteria">评价标准</a>
-      <a href="/vote.html" class="active">投票</a>
-      <a href="/results.html">结果</a>
+      <a href="./index.html">内容</a>
+      <a href="./index.html#criteria">评价标准</a>
+      <a href="./vote.html" class="active">投票</a>
+      <a href="./results.html">结果</a>
     </div>
   </div>
 </nav>
 
 <main class="main-content">
 
-  <!-- Hero -->
   <header class="page-hero">
-    <div class="page-hero__eyebrow">月度投票</div>
+    <div class="page-hero__eyebrow">Monthly Vote</div>
     <h1 class="page-hero__title">选出你心中的<br><span>最佳内容</span></h1>
-    <p class="page-hero__desc">每个投票周期可选 <strong>3～5 个</strong>内容，结合评价标准综合判断，投出你宝贵的一票。</p>
-    <p style="margin-top:12px; font-size:13px; color:var(--text-muted);">💡 <a href="/#criteria" style="color:var(--accent);">查看评价标准 →</a></p>
+    <p class="page-hero__desc">每个投票周期可选 <strong>3 ～ 5 个</strong>内容，结合评价标准综合判断，投出你宝贵的一票。</p>
+    <p id="vote-month-label" style="color: var(--accent-purple); font-weight: 500;"></p>
   </header>
 
-  <!-- 姓名输入 -->
-  <div class="voter-name-input" style="margin-bottom:var(--space-lg);">
-    <label>您的姓名 / 昵称：</label>
+  <div class="voter-name-input">
+    <label>您的姓名 / 昵称</label>
     <input type="text" id="voter-name" placeholder="输入后即可投票" maxlength="20">
   </div>
 
-  <!-- 筛选 -->
-  <div class="filter-bar" id="filter-bar" style="margin-bottom:var(--space-md);">
+  <div class="vote-instructions">
+    请选出本月 <strong>3 ～ 5 个</strong>你认为最有价值的内容 &nbsp;·&nbsp; 每人每月只能投票一次 &nbsp;·&nbsp; <a href="./index.html#criteria" style="color:var(--accent-purple);">查看评价标准 →</a>
+  </div>
+
+  <div class="filter-bar" id="filter-bar">
     <button class="filter-btn active" data-filter="all">全部</button>
-    <button class="filter-btn" data-filter="article">文章/图文</button>
-    <button class="filter-btn" data-filter="video">视频</button>
-    <button class="filter-btn" data-filter="poster">长图/海报</button>
-    <button class="filter-btn" data-filter="ppt">PPT</button>
+    <button class="filter-btn" data-filter="insight">💡 洞察类</button>
+    <button class="filter-btn" data-filter="daily">📝 日常类</button>
+    <button class="filter-btn" data-filter="tool">🛠️ 工具类</button>
+    <button class="filter-btn" data-filter="poster">🎨 视觉类</button>
+    <button class="filter-btn" data-filter="video">🎬 视频类</button>
   </div>
 
   <div class="content-feed" id="vote-feed"></div>
-  <div class="empty-state" id="empty-state" style="display:none;">
+  <div class="empty-state" id="empty-state">
     <div class="empty-state__icon">📭</div>
     <h3 class="empty-state__title">暂无内容可投票</h3>
     <p class="empty-state__desc">请先添加内容后再来投票</p>
@@ -57,27 +58,26 @@
 
 </main>
 
-<!-- 底部提交栏 -->
-<div class="vote-submit-bar" id="submit-bar" style="display:none;">
+<div class="vote-submit-bar" id="submit-bar">
   <div class="vote-submit-bar__count">
-    已选择 <strong id="selected-num">0</strong> / 5 个内容（至少选 3 个）
+    已选 <strong id="selected-num">0</strong> / 5 个（至少 3 个）
   </div>
   <button class="btn-primary" id="submit-vote-btn">提交投票</button>
 </div>
 
-<!-- 成功弹窗 -->
 <div class="vote-modal" id="vote-success">
   <div class="vote-modal__box">
     <div class="vote-modal__emoji">🎉</div>
-    <div class="vote-modal__title">投票成功！</div>
+    <div class="vote-modal__title">投票成功</div>
     <div class="vote-modal__desc">感谢您的参与！<br>您的意见将帮助内容团队持续进步。</div>
     <div class="vote-modal__actions">
-      <a href="/results.html" class="btn-primary" style="text-decoration:none;">📊 查看结果</a>
-      <a href="/" class="btn-ghost" style="text-decoration:none;">📋 返回首页</a>
+      <a href="./results.html" class="btn-primary" style="text-decoration:none;">查看结果</a>
+      <a href="./index.html" class="btn-ghost" style="text-decoration:none;">返回首页</a>
     </div>
   </div>
 </div>
 
-<script src="/js/vote.js"></script>
+<script src="./js/config.js"></script>
+<script src="./js/vote.js"></script>
 </body>
 </html>

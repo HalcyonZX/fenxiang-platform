@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投票结果 - 纷享销客内容平台</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- 导航 -->
+<nav class="site-nav">
+  <div class="site-nav__inner">
+    <a href="/" class="site-nav__brand">
+      <img src="/images/logo.png" alt="纷享销客" class="site-nav__brand-logo">
+    </a>
+    <div class="site-nav__links">
+      <a href="/">内容</a>
+      <a href="/vote.html">投票</a>
+      <a href="/results.html" class="active">结果</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="page-hero" style="text-align: center;">
+  <div class="page-hero__eyebrow" style="display: inline-block;">投票结果</div>
+  <h1 class="page-hero__title">让数据说话</h1>
+  <p class="page-hero__desc" style="margin-left: auto; margin-right: auto;">每月投票结果公示，帮助内容团队持续迭代、产出更受欢迎的内容。</p>
+</header>
+
+<div class="main-content">
+
+  <!-- 月度选择器 -->
+  <div class="month-selector" id="month-selector"></div>
+
+  <!-- 摘要 -->
+  <div class="results-summary" id="results-summary"></div>
+
+  <!-- 排行榜 -->
+  <section class="criteria-section">
+    <div class="criteria-section__header">
+      <h2 class="criteria-section__title">🏆 内容排行</h2>
+      <p class="criteria-section__desc">票数越高，说明该内容越受大家认可</p>
+    </div>
+    <div class="ranking-list" id="ranking-container"></div>
+  </section>
+
+</div>
+
+<script src="/js/results.js"></script>
+</body>
+</html>

@@ -1,13 +1,15 @@
-// vote.js - 投票页逻辑
+// vote.js - 投票页逻辑（使用 JSONBin.io）
 let allContent = [];
 let selectedIds = new Set();
-let currentMonth = '';
+let currentMonth = getCurrentMonth();
 let autoRefreshTimer = null;
 
 async function init() {
-  await Promise.all([loadMonth(), loadContent()]);
+  await loadContent();
+  renderVoteMonth();
   renderVoteCards(allContent);
   initFilter();
+  initSubmit();
   checkAlreadyVoted();
   // 每 10 秒自动刷新内容列表
   autoRefreshTimer = setInterval(async () => {
@@ -26,21 +28,14 @@ async function init() {
   }, 10000);
 }
 
-async function loadMonth() {
-  try {
-    const res = await fetch('/api/current-month');
-    const data = await res.json();
-    currentMonth = data.month;
-    const label = document.getElementById('vote-month-label');
-    if (label) label.textContent = `📅 ${data.month.replace('-', '年')}月 · 投票进行中`;
-  } catch (e) {
-    document.getElementById('vote-month-label').textContent = '📅 月度投票';
-  }
+function renderVoteMonth() {
+  const label = document.getElementById('vote-month-label');
+  if (label) label.textContent = `📅 ${currentMonth.replace('-', '年')}月 · 投票进行中`;
 }
 
 async function loadContent() {
   try {
-    const res = await fetch('/api/content');
+    const res = await fetch('./data/content.json');
     const data = await res.json();
     allContent = data.items || [];
   } catch (e) {
@@ -59,7 +54,7 @@ function renderVoteCards(items) {
   }
   empty.style.display = 'none';
 
-  const typeIcons = { article: '📄', video: '🎬', poster: '🖼️', ppt: '📊' };
+  const typeIcons = { insight: '💡', daily: '📝', tool: '🛠️', poster: '🎨', video: '🎬', article: '📄', ppt: '📊' };
 
   grid.innerHTML = items.map(item => `
     <div class="story-card vote-card" id="card-${item.id}" onclick="toggleVote('${item.id}')">
@@ -137,25 +132,42 @@ async function submitVote() {
   }
 
   try {
-    const res = await fetch('/api/vote', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        month: currentMonth,
-        contentIds: Array.from(selectedIds),
-        voterName: voterName
-      })
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      alert(data.error || '提交失败，请稍后重试。');
+    // 获取现有数据
+    const votesData = await getVotesData();
+    if (!votesData.votes) votesData.votes = {};
+    if (!votesData.voters) votesData.voters = [];
+
+    // 检查是否已投票
+    if (votesData.voters.includes(voterName)) {
+      alert('您已经投过票了，每人每月只能投一次。');
       return;
     }
+
+    // 累加票数
+    Array.from(selectedIds).forEach(id => {
+      if (!votesData.votes[id]) votesData.votes[id] = 0;
+      votesData.votes[id]++;
+    });
+
+    // 记录投票人
+    votesData.voters.push(voterName);
+
+    // 保存数据
+    await saveVotesData(votesData);
+
     localStorage.setItem(`voted_${currentMonth}`, 'true');
     localStorage.setItem(`voter_${currentMonth}`, voterName);
     document.getElementById('vote-success').style.display = 'flex';
   } catch (e) {
+    console.error('提交失败', e);
     alert('提交失败，请检查网络后重试。');
+  }
+}
+
+function initSubmit() {
+  const btn = document.getElementById('submit-vote-btn');
+  if (btn) {
+    btn.addEventListener('click', submitVote);
   }
 }
 

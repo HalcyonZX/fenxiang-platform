@@ -1,34 +1,21 @@
-// results.js - 结果页逻辑
+// results.js - 结果页逻辑（使用 JSONBin.io）
 let allContent = [];
-let currentMonth = '';
+let currentMonth = getCurrentMonth();
 let autoRefreshTimer = null;
 
 async function init() {
   await loadContent();
-  await loadCurrentMonth();
   renderMonthSelector();
   await loadResults(currentMonth);
   // 每 10 秒自动刷新投票结果
   autoRefreshTimer = setInterval(async () => {
-    await loadContent();
     await loadResults(currentMonth);
   }, 10000);
 }
 
-async function loadCurrentMonth() {
-  try {
-    const res = await fetch('/api/current-month');
-    const data = await res.json();
-    currentMonth = data.month;
-  } catch (e) {
-    const now = new Date();
-    currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-  }
-}
-
 async function loadContent() {
   try {
-    const res = await fetch('/api/content');
+    const res = await fetch('./data/content.json');
     const data = await res.json();
     allContent = data.items || [];
   } catch (e) {
@@ -54,17 +41,18 @@ function renderMonthSelector() {
 async function selectMonth(month) {
   currentMonth = month;
   document.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
+  document.querySelectorAll('.month-btn').forEach(b => {
+    if (b.textContent.includes(month)) b.classList.add('active');
+  });
   await loadResults(month);
 }
 
 async function loadResults(month) {
   try {
-    const res = await fetch(`/api/votes/${month}`);
-    const data = await res.json();
-
-    const totalVoters = data.totalVoters || 0;
-    const votes = data.votes || {};
+    const votesData = await getVotesData();
+    const votes = votesData.votes || {};
+    const voters = votesData.voters || [];
+    const totalVoters = voters.length;
     const votedContentCount = Object.keys(votes).length;
 
     // 摘要
@@ -85,7 +73,7 @@ async function loadResults(month) {
 
     // 排行榜
     const container = document.getElementById('ranking-container');
-    const typeIcons = { article: '📄', video: '🎬', poster: '🖼️', ppt: '📊' };
+    const typeIcons = { article: '📄', video: '🎬', poster: '🖼️', ppt: '📊', insight: '💡', daily: '📝', tool: '🛠️' };
 
     if (!Object.keys(votes).length) {
       container.innerHTML = `
@@ -94,7 +82,7 @@ async function loadResults(month) {
           <h3 class="empty-state__title">暂无投票数据</h3>
           <p class="empty-state__desc">本月还没有人投票，快去参与投票吧！</p>
           <br>
-          <a href="/vote.html" class="btn-primary" style="text-decoration:none;">去投票 →</a>
+          <a href="./vote.html" class="btn-primary" style="text-decoration:none;">去投票 →</a>
         </div>
       `;
       return;

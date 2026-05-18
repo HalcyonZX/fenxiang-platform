@@ -1,4 +1,4 @@
-// main.js - 首页逻辑
+// main.js - 首页逻辑（GitHub Pages 版本）
 let allContent = [];
 let criteriaData = null;
 let autoRefreshTimer = null;
@@ -11,16 +11,15 @@ async function init() {
   initFilter();
   // 每 10 秒自动刷新数据
   autoRefreshTimer = setInterval(async () => {
-    await Promise.all([loadContent(), loadCriteria()]);
+    await loadContent();
     renderCards(allContent);
-    renderCriteria();
     updateStats();
   }, 10000);
 }
 
 async function loadContent() {
   try {
-    const res = await fetch('/api/content');
+    const res = await fetch('./data/content.json');
     const data = await res.json();
     allContent = data.items || [];
   } catch (e) {
@@ -30,7 +29,7 @@ async function loadContent() {
 
 async function loadCriteria() {
   try {
-    const res = await fetch('/api/criteria');
+    const res = await fetch('./data/criteria.json');
     criteriaData = await res.json();
   } catch (e) {
     console.error('加载评价标准失败', e);
@@ -48,7 +47,7 @@ function renderCards(items) {
   }
   empty.style.display = 'none';
 
-  const typeIcons = { article: '📄', video: '🎬', poster: '🖼️', ppt: '📊' };
+  const typeIcons = { insight: '💡', daily: '📝', tool: '🛠️', poster: '🎨', video: '🎬', article: '📄', ppt: '📊' };
 
   grid.innerHTML = items.map((item, i) => `
     <div class="story-card" onclick="openContent('${item.platformUrl || ''}', '${item.id}')">
@@ -123,10 +122,11 @@ function renderCriteria() {
   }
 
   const typeMap = {
-    article:  ['📄 文章/图文类', '专为文章和图文内容制定的标准'],
-    video:    ['🎬 视频类', '专为视频内容制定的标准'],
-    poster:   ['🖼️ 长图/海报类', '专为长图和海报内容制定的标准'],
-    ppt:      ['📊 PPT类', '专为PPT演示文稿制定的标准'],
+    insight: ['💡 洞察类', '行业深度文章、标杆客户案例'],
+    daily:   ['📝 日常类', '案例文章、产品内容、活动资讯'],
+    tool:    ['🛠️ 工具类', '演讲素材、公司介绍PPT、销售工具'],
+    poster:  ['🎨 视觉类', '海报、长图、活动物料'],
+    video:   ['🎬 视频类', '产品演示、客户采访、品牌视频'],
   };
 
   for (const [key, [label, desc]] of Object.entries(typeMap)) {

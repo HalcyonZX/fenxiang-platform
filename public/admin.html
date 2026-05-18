@@ -75,10 +75,11 @@
         <div class="form-group">
           <label>类型 *</label>
           <select id="add-type" required>
-            <option value="article">文章/图文</option>
-            <option value="video">视频</option>
-            <option value="poster">长图/海报</option>
-            <option value="ppt">PPT</option>
+            <option value="insight">洞察类（行业文章、标杆案例）</option>
+            <option value="daily">日常类（案例文章、产品内容）</option>
+            <option value="tool">工具类（演讲素材、PPT、销售工具）</option>
+            <option value="poster">视觉类（海报、长图、物料）</option>
+            <option value="video">视频类</option>
           </select>
         </div>
         <div class="form-group">
@@ -118,10 +119,11 @@
         <div class="form-group">
           <label>类型 *</label>
           <select id="edit-type" required>
-            <option value="article">文章/图文</option>
-            <option value="video">视频</option>
-            <option value="poster">长图/海报</option>
-            <option value="ppt">PPT</option>
+            <option value="insight">洞察类（行业文章、标杆案例）</option>
+            <option value="daily">日常类（案例文章、产品内容）</option>
+            <option value="tool">工具类（演讲素材、PPT、销售工具）</option>
+            <option value="poster">视觉类（海报、长图、物料）</option>
+            <option value="video">视频类</option>
           </select>
         </div>
         <div class="form-group">
@@ -152,7 +154,7 @@
   </div>
 
   <script>
-    const typeLabels = { article: '文章/图文', video: '视频', poster: '长图/海报', ppt: 'PPT' };
+    const typeLabels = { insight: '洞察类', daily: '日常类', tool: '工具类', poster: '视觉类', video: '视频类' };
     let allContent = [];
 
     function showTab(tab) {
